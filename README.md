@@ -1,5 +1,8 @@
 # Foursball REST API
 
+[![Build Status](https://travis-ci.org/Foursball/foursball-api.svg?branch=master)](https://travis-ci.org/Foursball/foursball-api)
+[![Docker Pulls](https://img.shields.io/docker/pulls/foursball/foursball-api.svg)](https://hub.docker.com/r/foursball/foursball-api/)
+
 Rest API for Foursball
 
 ## Running
@@ -33,7 +36,7 @@ For easier local dev you can copy /config/oauth.js to /config/local.js (which is
 
 ## Running in Docker
 
-Docker is the easiest way to run the **Foursball REST API**. First, build the app locally with `docker build -t foursball-api .` then run with `docker run -d -p 80:80 foursball-api`. The OAuth environment variables are ommited from the `docker run` command, so add them in once you have followed the above instructions (e.g. `docker run -d -e GITHUB_ID=[my-id] -e GITHUB_SECRET=[my-secret] -e SERVER_URL=http://127.0.0.1 -p 80:80 foursball-api`).
+Docker is the easiest way to run the **Foursball REST API**. Run with `docker run -d -p 80:80 foursball/foursball-api`. The OAuth environment variables are ommited from the `docker run` command, so add them in once you have followed the above instructions (e.g. `docker run -d -e GITHUB_ID=[my-id] -e GITHUB_SECRET=[my-secret] -e SERVER_URL=http://127.0.0.1 -p 80:80 foursball-api`).
 
 ## Running with MySQL
 
