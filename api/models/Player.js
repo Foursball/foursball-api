@@ -8,6 +8,8 @@ module.exports = {
     hasMinimumGames : { type: 'Boolean' },
     active : { type: 'Boolean' },
 
+    user : { type: 'User' },
+
     teams: {
       collection: 'team',
       via: 'players'
