@@ -52,23 +52,29 @@ module.exports.bootstrap = function(cb) {
     });
   });
 
-  passport.use(new GitHubStrategy({
-    clientID: sails.config.oauth.github.clientID,
-    clientSecret: sails.config.oauth.github.clientSecret,
-    callbackURL: sails.config.serverUrl + '/auth/github/callback'
-  }, verifyHandler));
+  if (sails.config.oauth.github.clientID && sails.config.oauth.github.clientSecret) {
+    passport.use(new GitHubStrategy({
+      clientID: sails.config.oauth.github.clientID,
+      clientSecret: sails.config.oauth.github.clientSecret,
+      callbackURL: sails.config.serverUrl + '/auth/github/callback'
+    }, verifyHandler));
+  }
 
-  passport.use(new GoogleStrategy({
-    clientID: sails.config.oauth.google.clientID,
-    clientSecret: sails.config.oauth.google.clientSecret,
-    callbackURL: sails.config.serverUrl + '/auth/google/callback'
-  }, verifyHandler));
+  if (sails.config.oauth.google.clientID && sails.config.oauth.google.clientSecret) {
+    passport.use(new GoogleStrategy({
+      clientID: sails.config.oauth.google.clientID,
+      clientSecret: sails.config.oauth.google.clientSecret,
+      callbackURL: sails.config.serverUrl + '/auth/google/callback'
+    }, verifyHandler));
+  }
 
-  passport.use(new TwitterStrategy({
-    consumerKey: sails.config.oauth.twitter.consumerKey,
-    consumerSecret: sails.config.oauth.twitter.consumerSecret,
-    callbackURL: sails.config.serverUrl + '/auth/twitter/callback'
-  }, verifyHandler));
+  if (sails.config.oauth.twitter.consumerKey && sails.config.oauth.twitter.consumerSecret) {
+    passport.use(new TwitterStrategy({
+      consumerKey: sails.config.oauth.twitter.consumerKey,
+      consumerSecret: sails.config.oauth.twitter.consumerSecret,
+      callbackURL: sails.config.serverUrl + '/auth/twitter/callback'
+    }, verifyHandler));
+  }
 
   cb();
 };
