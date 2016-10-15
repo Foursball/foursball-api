@@ -1,17 +1,74 @@
-/**
- * Bootstrap
- * (sails.config.bootstrap)
- *
- * An asynchronous bootstrap function that runs before your Sails app gets lifted.
- * This gives you an opportunity to set up your data model, run jobs, or perform some special logic.
- *
- * For more information on bootstrapping your app, check out:
- * http://sailsjs.org/#!/documentation/reference/sails.config/sails.config.bootstrap.html
- */
+var passport = require('passport'),
+  GitHubStrategy = require('passport-github2').Strategy,
+  GoogleStrategy = require('passport-google-oauth').OAuth2Strategy,
+  TwitterStrategy = require('passport-twitter').Strategy;
+
+var verifyHandler = function(token, tokenSecret, profile, done) {
+  process.nextTick(function() {
+
+    User.findOne({
+      uid: profile.id
+    }, function(err, user) {
+      if (user) {
+        return done(null, user);
+      } else {
+
+        var data = {
+          provider: profile.provider,
+          uid: profile.id,
+          name: profile.displayName
+        };
+
+        if (profile.emails && profile.emails[0] && profile.emails[0].value) {
+          data.email = profile.emails[0].value;
+        }
+        if (profile.name && profile.name.givenName) {
+          data.firstname = profile.name.givenName;
+        }
+        if (profile.name && profile.name.familyName) {
+          data.lastname = profile.name.familyName;
+        }
+
+        User.create(data, function(err, user) {
+          return done(err, user);
+        });
+      }
+    });
+  });
+};
 
 module.exports.bootstrap = function(cb) {
 
-  // It's very important to trigger this callback method when you are finished
-  // with the bootstrap!  (otherwise your server will never lift, since it's waiting on the bootstrap)
+
+  passport.serializeUser(function(user, done) {
+    done(null, user.id);
+  });
+
+  passport.deserializeUser(function(id, done) {
+    User.findOne({
+      id: id
+    }, function(err, user) {
+      done(err, user);
+    });
+  });
+
+  passport.use(new GitHubStrategy({
+    clientID: sails.config.oauth.github.clientID,
+    clientSecret: sails.config.oauth.github.clientSecret,
+    callbackURL: sails.config.serverUrl + '/auth/github/callback'
+  }, verifyHandler));
+
+  passport.use(new GoogleStrategy({
+    clientID: sails.config.oauth.google.clientID,
+    clientSecret: sails.config.oauth.google.clientSecret,
+    callbackURL: sails.config.serverUrl + '/auth/google/callback'
+  }, verifyHandler));
+
+  passport.use(new TwitterStrategy({
+    consumerKey: sails.config.oauth.twitter.consumerKey,
+    consumerSecret: sails.config.oauth.twitter.consumerSecret,
+    callbackURL: sails.config.serverUrl + '/auth/twitter/callback'
+  }, verifyHandler));
+
   cb();
 };
