@@ -4,6 +4,7 @@
   "description": "Rest API for Foursball",
   "dependencies": {
     "ejs": "2.3.4",
+    "fluent-logger": "^2.2.0",
     "grunt": "1.0.1",
     "grunt-contrib-clean": "1.0.0",
     "grunt-contrib-coffee": "1.0.0",
@@ -17,6 +18,7 @@
     "grunt-sails-linker": "~0.10.1",
     "grunt-sync": "0.5.2",
     "include-all": "^1.0.0",
+    "log4js": "^1.0.1",
     "passport": "^0.3.2",
     "passport-github2": "^0.1.10",
     "passport-google-oauth": "^1.0.0",

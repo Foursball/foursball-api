@@ -3,6 +3,9 @@ var passport = require('passport'),
   GoogleStrategy = require('passport-google-oauth').OAuth2Strategy,
   TwitterStrategy = require('passport-twitter').Strategy;
 
+var log4js = require('log4js');
+var logger = log4js.getLogger('config/bootstrap');
+
 var verifyHandler = function(token, tokenSecret, profile, done) {
   process.nextTick(function() {
 
@@ -39,6 +42,12 @@ var verifyHandler = function(token, tokenSecret, profile, done) {
 
 module.exports.bootstrap = function(cb) {
 
+  if (process.env.FLUENTD_HOST) {
+    log4js.addAppender(require('fluent-logger').support.log4jsAppender('api', {
+      host: process.env.FLUENTD_HOST,
+      timeout: 3.0
+    }));
+  }
 
   passport.serializeUser(function(user, done) {
     done(null, user.id);
@@ -75,6 +84,8 @@ module.exports.bootstrap = function(cb) {
       callbackURL: sails.config.serverUrl + '/auth/twitter/callback'
     }, verifyHandler));
   }
+
+  logger.info("Done bootstrapping");
 
   cb();
 };
