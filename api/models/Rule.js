@@ -2,10 +2,8 @@ module.exports = {
 
   attributes: {
     dateCreated: { type: 'datetime' },
+    message: { type: 'text' },
 
-    teamGames: {
-      collection: 'teamGame',
-      via: 'game'
-    }
+    league: { model: 'league' }
   }
 };
