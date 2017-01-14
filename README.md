@@ -13,6 +13,7 @@ Clone and run with the following commands:
 npm install -g sails
 git clone https://github.com/Foursball/foursball-api.git
 cd foursball-api
+npm install
 sails lift
 ```
 
@@ -33,6 +34,11 @@ Finally, pass in the **SERVER_URL** variable as the full URL of your application
 ### Local Dev
 
 For easier local dev you can copy /config/oauth.js to /config/local.js (which is under .gitignore) and replace the OAuth variables with you application credentials. This removes the need to run the app with the OAuth environment variables every time.
+
+You can also run the app with automatic restart on code change
+```bash
+npm run dev
+```
 
 ## Running in Docker
 

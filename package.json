@@ -31,11 +31,15 @@
   },
   "scripts": {
     "debug": "node debug app.js",
-    "start": "node app.js"
+    "start": "node app.js",
+    "dev": "nodemon app.js"
   },
   "main": "app.js",
   "repository": {
     "url": "https://github.com/Foursball/foursball-api.git"
   },
-  "author": "TheConnMan"
+  "author": "TheConnMan",
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
 }
