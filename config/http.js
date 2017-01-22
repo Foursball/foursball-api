@@ -1,5 +1,9 @@
+var proxy = require('express-http-proxy');
+
 module.exports.http = {
   middleware: {
+
+    custom: true,
 
     passportInit: require('passport').initialize(),
     passportSession: require('passport').session(),
@@ -16,11 +20,20 @@ module.exports.http = {
             'compress',
             'methodOverride',
             'poweredBy',
+            '$custom',
             'router',
             'www',
             'favicon',
             '404',
             '500'
-          ],
+          ]
+  },
+
+  customMiddleware: function(app) {
+    app.use(proxy(sails.config.globals.proxy, {
+      filter: function(req, res) {
+        return req.path.match(/^\/(?!(auth|game|home|player|team|user)).*/);
+      }
+    }));
   }
 };
