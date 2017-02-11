@@ -7,10 +7,18 @@ module.exports = {
     email: 'String',
     firstname: 'String',
     lastname: 'String',
+    slack : { type: 'String' },
+    profileImageUrl : { type: 'String' },
+    retired : { type: 'Boolean' },
 
-    players: {
-      collection: 'player',
+    userLeagues: {
+      collection: 'userLeague',
       via: 'user'
+    },
+
+    teams: {
+      collection: 'team',
+      via: 'users'
     }
   }
 };

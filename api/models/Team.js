@@ -1,10 +1,16 @@
 module.exports = {
 
   attributes: {
-    players: {
-      collection: 'player',
-      via: 'teams',
-      dominant: true
+    name: { type: 'string' },
+
+    users: {
+      collection: 'user',
+      via: 'teams'
+    },
+
+    teamGames: {
+      collection: 'teamGame',
+      via: 'team'
     }
   }
 };
