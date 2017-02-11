@@ -32,7 +32,7 @@ module.exports.http = {
   customMiddleware: function(app) {
     app.use(proxy(sails.config.globals.proxy, {
       filter: function(req, res) {
-        return req.path.match(/^\/(?!(auths|games|leagues|rules|seasons|teams|teamgames|users|userleagues)).*/);
+        return sails.config.globals.proxyEnabled && req.path.match(/^\/(?!(auths|games|leagues|rules|seasons|teams|teamgames|users|userleagues)).*/);
       }
     }));
   }
