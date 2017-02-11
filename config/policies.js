@@ -2,16 +2,28 @@ module.exports.policies = {
 
   '*': true,
 
+  'GameController': {
+    '*': 'isAuthenticated'
+  },
+  'LeagueController': {
+    '*': 'isAuthenticated'
+  },
+  'RuleController': {
+    '*': 'isAuthenticated'
+  },
+  'SeasonController': {
+    '*': 'isAuthenticated'
+  },
   'TeamController': {
     '*': 'isAuthenticated'
   },
-  'GameController': {
+  'TeamGameController': {
     '*': 'isAuthenticated'
   },
   'UserController': {
     '*': 'isAuthenticated'
   },
-  'PlayerController': {
+  'UserLeagueController': {
     '*': 'isAuthenticated'
   }
 };
