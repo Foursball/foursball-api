@@ -2,6 +2,6 @@ module.exports = function(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   } else {
-    return res.redirect('/home/index');
+    return res.redirect('/');
   }
 };
