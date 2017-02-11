@@ -2,7 +2,7 @@ module.exports = {
 
   attributes: {
     name: { type: 'string' },
-    minimumGames: { type: 'number' },
+    minimumGames: { type: 'integer' },
 
     seasons: {
       collection: 'season',
