@@ -85,7 +85,16 @@ module.exports.bootstrap = function(cb) {
     }, verifyHandler));
   }
 
-  logger.info("Done bootstrapping");
-
-  cb();
+  User.count().then(function(count) {
+    if (count === 0) {
+      logger.info("Starting data generation");
+      return DataGeneratorService.generateDemoData();
+    } else {
+      logger.info("Data already exists, skipping data generation");
+      return;
+    }
+  }).then(function() {
+      logger.info("Done bootstrapping");
+      cb();
+  });
 };
