@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "description": "Rest API for Foursball",
   "dependencies": {
+    "bluebird": "^3.4.7",
     "ejs": "2.3.4",
     "fluent-logger": "^2.2.0",
     "grunt": "1.0.1",
@@ -27,7 +28,8 @@
     "rc": "1.0.1",
     "sails": "~0.12.7",
     "sails-disk": "~0.10.9",
-    "sails-mysql": "^0.11.5"
+    "sails-mysql": "^0.11.5",
+    "shuffle-array": "^1.0.0"
   },
   "scripts": {
     "debug": "node debug app.js",

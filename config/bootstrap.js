@@ -88,7 +88,14 @@ module.exports.bootstrap = function(cb) {
   User.count().then(function(count) {
     if (count === 0) {
       logger.info("Starting data generation");
-      return DataGeneratorService.generateDemoData();
+      return DataGeneratorService.generateDemoData({
+        games: 50,
+        leagues: 1,
+        rules: 5,
+        seasons: 2,
+        teams: 8,
+        users: 5,
+      });
     } else {
       logger.info("Data already exists, skipping data generation");
       return;
