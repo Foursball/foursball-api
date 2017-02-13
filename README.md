@@ -44,6 +44,12 @@ npm run dev
 
 Docker is the easiest way to run the **Foursball REST API**. Run with `docker run -d -p 80:80 foursball/foursball-api`. The OAuth environment variables are ommited from the `docker run` command, so add them in once you have followed the above instructions (e.g. `docker run -d -e GITHUB_ID=[my-id] -e GITHUB_SECRET=[my-secret] -e SERVER_URL=http://127.0.0.1 -p 80:80 foursball-api`).
 
+## UI Proxy
+This API can be run with the [Foursball UI](https://github.com/Foursball/foosball) by proxying all non-API calls to the UI. Use the following environment variables to configure the proxy:
+
+- PROXY_ENABLED (default: false) - Toggle for the proxy
+- PROXY_URL (default: http://localhost:4200) - URL to proxy non-API requests to
+
 ## Running with MySQL
 
 The default database is on disk, so it is recommended to run the **Foursball REST API** with a MySQL DB in production. Use the following environment variables:
