@@ -10,6 +10,8 @@ module.exports = {
     slack : { type: 'String' },
     profileImageUrl : { type: 'String' },
     retired : { type: 'Boolean' },
+    isAdmin: { type: 'Boolean' },
+    isGlobalAdmin: { type: 'Boolean' },
 
     userLeagues: {
       collection: 'userLeague',
