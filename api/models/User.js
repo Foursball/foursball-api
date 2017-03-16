@@ -10,7 +10,7 @@ module.exports = {
       unique: true,
       index: true,
       uuidv4: true,
-      defaultsTo: function (){ return uuid.v4(); },
+      defaultsTo: uuid.v4,
     },
 
     provider: 'String',
