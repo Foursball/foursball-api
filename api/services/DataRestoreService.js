@@ -23,10 +23,11 @@ function restore() {
     let U = FoosballersJson[f];
 
     uuidMap[f] = newUuid;
+    console.log(`${f} is now ${newUuid}`);
 
     return User.create({
-      firstname: f.split('-')[0],
-      lastname: f.split('-')[1],
+      firstName: f.split('-')[0],
+      lastName: f.split('-')[1],
       slack: U.slack,
       retired: U.retired === "true" ? true : false,
       isAdmin: U.isAdmin ? true : false,
@@ -43,8 +44,15 @@ function restore() {
 
     uuidMap[t] = newUuid;
 
+    if (!uuidMap[T.player1]) {
+      console.log(`${T.player1} not found`);
+    }
+    if (!uuidMap[T.player2]) {
+      console.log(`${T.player2} not found`);
+    }
+
     return Team.create({
-      id: t,
+      id: newUuid,
       users: [
         uuidMap[T.player1], uuidMap[T.player2]
       ]
@@ -116,6 +124,13 @@ function restore() {
     let team1Id = uuidMap[G.team1];
     let team2Id = uuidMap[G.team2];
 
+    if (!team1Id) {
+      console.log(`${G.team1} not found`);
+    }
+    if (!team2Id) {
+      console.log(`${G.team2} not found`);
+    }
+
     prev.push(TeamGame.create({
       team: team1Id,
       wins: G.team1Wins,
@@ -154,5 +169,5 @@ function restore() {
 }
 
 function thenHandler(model) {
-  logger.info(`Created ${model.toString()}`);
+  // logger.info(`Created ${model.id}`);
 }
