@@ -50,6 +50,23 @@ This API can be run with the [Foursball UI](https://github.com/Foursball/foosbal
 - PROXY_ENABLED (default: false) - Toggle for the proxy
 - PROXY_URL (default: http://localhost:4200) - URL to proxy non-API requests to
 
+## Restoring data from Firebase
+With the proper zip file unpacked, this API can restore data from Firebase. Download the zip file from the #ops backups in Slack and unzip it in a top-level folder called `restore`.
+-foursball-api
+ |_restore
+    |_foosballers.json
+    |_games.json
+    |_leagues.json
+    |_rules.json
+    |_tables.json
+    |_teams.json
+    |_tenants.json
+Enable the following environment variable:
+- DATA_RESTORE=true
+
+Full command used for local dev restoring data from Firebase:
+`rm .tmp/localDiskDb.db && PROXY_ENABLED=true DATA_RESTORE=true npm run dev`
+
 ## Running with MySQL
 
 The default database is on disk, so it is recommended to run the **Foursball REST API** with a MySQL DB in production. Use the following environment variables:
