@@ -52,6 +52,7 @@ This API can be run with the [Foursball UI](https://github.com/Foursball/foosbal
 
 ## Restoring data from Firebase
 With the proper zip file unpacked, this API can restore data from Firebase. Download the zip file from the #ops backups in Slack and unzip it in a top-level folder called `restore`.
+```
 -foursball-api
  |_restore
     |_foosballers.json
@@ -61,6 +62,7 @@ With the proper zip file unpacked, this API can restore data from Firebase. Down
     |_tables.json
     |_teams.json
     |_tenants.json
+```
 Enable the following environment variable:
 - DATA_RESTORE=true
 
