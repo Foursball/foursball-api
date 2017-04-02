@@ -26,7 +26,7 @@ module.exports = function findRecords (req, res) {
   // Lookup for records that match the specified criteria.
   var query = Model.find()
   .where( actionUtil.parseCriteria(req) )
-  .limit( actionUtil.parseLimit(req) )
+  // .limit( actionUtil.parseLimit(req) )
   .skip( actionUtil.parseSkip(req) )
   .sort( actionUtil.parseSort(req) );
   query = actionUtil.populateRequest(query, req);

@@ -31,7 +31,8 @@
     "sails-disk": "~0.10.9",
     "sails-mysql": "^0.11.5",
     "sails-persistence-logger": "^0.1.0",
-    "shuffle-array": "^1.0.0"
+    "shuffle-array": "^1.0.0",
+    "uuid": "^3.0.1"
   },
   "scripts": {
     "debug": "node debug app.js",
