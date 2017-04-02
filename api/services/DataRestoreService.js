@@ -1,9 +1,10 @@
 const Promise = require('bluebird');
 const uuid = require('uuid');
-var log4js = require('log4js');
-var logger = log4js.getLogger('api/services/DataRestoreService');
 const cwd = process.cwd();
 const path = require('path');
+
+var log4js = require('log4js');
+var logger = log4js.getLogger('api/services/DataRestoreService');
 
 module.exports = {
   restore
@@ -23,7 +24,7 @@ function restore() {
     let U = FoosballersJson[f];
 
     uuidMap[f] = newUuid;
-    console.log(`${f} is now ${newUuid}`);
+    logger.debug(`${f} is now ${newUuid}`);
 
     return User.create({
       firstName: f.split('-')[0],
@@ -35,7 +36,7 @@ function restore() {
       profileImageURL: U.profileImageURL,
       id: newUuid
     }).then(thenHandler)
-    .catch((e) => console.log(e));
+    .catch((e) => logger.error(e));
   });
 
   let teamsPromises = Object.keys(TeamsJson).map((t) => {
@@ -45,10 +46,10 @@ function restore() {
     uuidMap[t] = newUuid;
 
     if (!uuidMap[T.player1]) {
-      console.log(`${T.player1} not found`);
+      logger.warn(`${T.player1} not found`);
     }
     if (!uuidMap[T.player2]) {
-      console.log(`${T.player2} not found`);
+      logger.warn(`${T.player2} not found`);
     }
 
     return Team.create({
@@ -57,7 +58,7 @@ function restore() {
         uuidMap[T.player1], uuidMap[T.player2]
       ]
     }).then(thenHandler)
-    .catch((e) => console.log(e));
+    .catch((e) => logger.error(e));
   });
 
   let netuitiveId = uuid.v4();
@@ -76,7 +77,7 @@ function restore() {
       message: R.message,
       league: netuitiveId
     }).then(thenHandler)
-    .catch((e) => console.log(e));
+    .catch((e) => logger.error(e));
   });
 
   let seasonPromises = [
@@ -85,13 +86,13 @@ function restore() {
       name: 'Season-0',
       league: netuitiveId
     }).then(thenHandler)
-    .catch((e) => console.log(e)),
+    .catch((e) => logger.error(e)),
     Season.create({
       id: season2Id,
       name: 'Season-1',
       league: netuitiveId
     }).then(thenHandler)
-    .catch((e) => console.log(e))
+    .catch((e) => logger.error(e))
   ];
 
   let leaguePromises = [
@@ -101,7 +102,7 @@ function restore() {
       seasons: [season1Id, season2Id],
       rules: [uuidMap['rule-1'], uuidMap['rule-2']]
     }).then(thenHandler)
-    .catch((e) => console.log(e))
+    .catch((e) => logger.error(e))
   ];
 
   let gamePromises = Object.keys(GamesJson).map((g) => {
@@ -114,7 +115,7 @@ function restore() {
       dateCreated: G.time,
       id: newUuid
     }).then(thenHandler)
-    .catch((e) => console.log(e));
+    .catch((e) => logger.error(e));
   });
 
   let teamGamesPromises = Object.keys(GamesJson).reduce((prev, g) => {
@@ -125,10 +126,10 @@ function restore() {
     let team2Id = uuidMap[G.team2];
 
     if (!team1Id) {
-      console.log(`${G.team1} not found`);
+      logger.warn(`${G.team1} not found`);
     }
     if (!team2Id) {
-      console.log(`${G.team2} not found`);
+      logger.warn(`${G.team2} not found`);
     }
 
     prev.push(TeamGame.create({
@@ -136,14 +137,14 @@ function restore() {
       wins: G.team1Wins,
       game: id
     }).then(thenHandler)
-    .catch((e) => console.log(e)));
+    .catch((e) => logger.error(e)));
 
     prev.push(TeamGame.create({
       team: team2Id,
       wins: G.team2Wins,
       game: id
     }).then(thenHandler)
-    .catch((e) => console.log(e)));
+    .catch((e) => logger.error(e)));
 
     return prev;
   }, []);
@@ -153,7 +154,7 @@ function restore() {
       user: uuidMap[f],
       league: netuitiveId
     }).then(thenHandler)
-    .catch((e) => console.log(e));
+    .catch((e) => logger.error(e));
   });
 
   allPromises.push(...gamePromises);
