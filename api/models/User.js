@@ -20,7 +20,7 @@ module.exports = {
     firstName: 'String',
     lastName: 'String',
     slack : { type: 'String' },
-    profileImageUrl : { type: 'String' },
+    profileImageURL : { type: 'String' },
     retired : { type: 'Boolean' },
     isAdmin: { type: 'Boolean' },
     isGlobalAdmin: { type: 'Boolean' },
